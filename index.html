@@ -1,0 +1,903 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rene le Bak</title>
+  <style>
+    :root {
+      --bg: #f6efe2;
+      --bg-accent: #e2c176;
+      --surface: rgba(255, 249, 235, 0.94);
+      --surface-strong: #fff7e7;
+      --text: #2f1c05;
+      --muted: #6e512b;
+      --gold: #d99c1d;
+      --gold-deep: #a55f00;
+      --success: #145d42;
+      --success-soft: #d9f2e7;
+      --danger: #8f1d14;
+      --danger-soft: #f8d3c8;
+      --shadow: 0 22px 52px rgba(97, 60, 9, 0.18);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: "Trebuchet MS", "Segoe UI", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(255, 255, 255, 0.5), transparent 30%),
+        radial-gradient(circle at bottom right, rgba(217, 156, 29, 0.22), transparent 34%),
+        linear-gradient(145deg, #f8f1e5, #f3e1b8 54%, var(--bg-accent));
+      display: grid;
+      place-items: center;
+      padding: 24px;
+    }
+
+    main {
+      width: min(100%, 760px);
+      background: var(--surface);
+      border: 1px solid rgba(110, 81, 43, 0.12);
+      border-radius: 28px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(14px);
+    }
+
+    .hero {
+      padding: 28px 24px 16px;
+      background:
+        linear-gradient(135deg, rgba(217, 156, 29, 0.18), rgba(255, 255, 255, 0.24)),
+        linear-gradient(180deg, rgba(255, 255, 255, 0.45), transparent);
+    }
+
+    .eyebrow {
+      display: inline-block;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: rgba(47, 28, 5, 0.08);
+      color: var(--muted);
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    h1 {
+      margin: 14px 0 10px;
+      font-size: clamp(2.4rem, 8vw, 4.5rem);
+      line-height: 0.94;
+    }
+
+    .subtitle {
+      margin: 0;
+      max-width: 48ch;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .content {
+      padding: 0 24px 28px;
+      display: grid;
+      gap: 18px;
+    }
+
+    .card {
+      background: var(--surface-strong);
+      border: 1px solid rgba(110, 81, 43, 0.12);
+      border-radius: 22px;
+      padding: 20px;
+    }
+
+    .card h2 {
+      margin: 0 0 10px;
+      font-size: 1.2rem;
+    }
+
+    .card p {
+      margin: 0;
+      line-height: 1.5;
+    }
+
+    .rules {
+      display: grid;
+      gap: 12px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .rules li {
+      padding: 14px 16px;
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.72);
+      border: 1px solid rgba(110, 81, 43, 0.08);
+      line-height: 1.45;
+    }
+
+    .rules strong {
+      display: inline-block;
+      min-width: 132px;
+    }
+
+    .grid {
+      display: grid;
+      gap: 14px;
+    }
+
+    label {
+      display: grid;
+      gap: 6px;
+      font-weight: 700;
+      color: var(--muted);
+    }
+
+    input,
+    select,
+    button {
+      font: inherit;
+    }
+
+    input,
+    select {
+      width: 100%;
+      padding: 12px 14px;
+      border-radius: 14px;
+      border: 1px solid rgba(110, 81, 43, 0.18);
+      background: rgba(255, 255, 255, 0.85);
+      color: var(--text);
+    }
+
+    .button-row {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .button {
+      appearance: none;
+      border: 0;
+      cursor: pointer;
+      padding: 12px 18px;
+      border-radius: 999px;
+      font-weight: 800;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.16s ease, box-shadow 0.16s ease, opacity 0.16s ease;
+    }
+
+    .button:hover,
+    .button:focus-visible {
+      transform: translateY(-1px);
+      outline: none;
+    }
+
+    .button.primary {
+      color: #fff7ec;
+      background: linear-gradient(180deg, #e7aa24, #c67e00);
+      box-shadow: 0 12px 26px rgba(166, 94, 0, 0.2);
+    }
+
+    .button.secondary {
+      color: var(--gold-deep);
+      background: transparent;
+      border: 1px solid rgba(110, 81, 43, 0.22);
+    }
+
+    .button.spotify {
+      color: white;
+      background: #1db954;
+      box-shadow: 0 10px 22px rgba(29, 185, 84, 0.18);
+    }
+
+    .play-area {
+      display: grid;
+      gap: 14px;
+      justify-items: center;
+      text-align: center;
+    }
+
+    .play-button {
+      appearance: none;
+      border: 0;
+      cursor: pointer;
+      width: min(100%, 340px);
+      min-height: 190px;
+      padding: 28px;
+      border-radius: 28px;
+      font-size: clamp(1.45rem, 5vw, 2rem);
+      font-weight: 900;
+      color: #fff8ef;
+      background:
+        radial-gradient(circle at top, rgba(255, 255, 255, 0.24), transparent 32%),
+        linear-gradient(180deg, #e7aa24, #c68100);
+      box-shadow:
+        inset 0 2px 0 rgba(255, 255, 255, 0.25),
+        0 18px 28px rgba(179, 110, 0, 0.28);
+      transition: transform 0.16s ease, box-shadow 0.16s ease, filter 0.16s ease;
+    }
+
+    .play-button:hover,
+    .play-button:focus-visible {
+      transform: translateY(-2px) scale(1.01);
+      box-shadow:
+        inset 0 2px 0 rgba(255, 255, 255, 0.25),
+        0 22px 34px rgba(179, 110, 0, 0.34);
+      filter: saturate(1.03);
+      outline: none;
+    }
+
+    .play-button:disabled,
+    .button:disabled {
+      opacity: 0.55;
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
+    }
+
+    .result {
+      width: 100%;
+      min-height: 150px;
+      padding: 18px;
+      border-radius: 20px;
+      text-align: left;
+      background: white;
+      border: 1px solid rgba(110, 81, 43, 0.08);
+    }
+
+    .result.pass {
+      background: var(--success-soft);
+    }
+
+    .result.drink,
+    .result.double {
+      background: var(--danger-soft);
+    }
+
+    .status {
+      display: grid;
+      gap: 8px;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .status strong {
+      color: var(--text);
+    }
+
+    .small {
+      font-size: 0.92rem;
+      color: var(--muted);
+    }
+
+    code {
+      font-family: "SFMono-Regular", Menlo, Consolas, monospace;
+      font-size: 0.92em;
+      background: rgba(47, 28, 5, 0.06);
+      padding: 0.1em 0.35em;
+      border-radius: 6px;
+    }
+
+    @media (max-width: 560px) {
+      body {
+        padding: 12px;
+      }
+
+      .hero,
+      .content {
+        padding-left: 18px;
+        padding-right: 18px;
+      }
+
+      .rules strong {
+        min-width: 0;
+        margin-bottom: 4px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <section class="hero">
+      <span class="eyebrow">Drankspel</span>
+      <h1>Rene le Bak</h1>
+      <p class="subtitle">
+        De site blijft open. Spotify speelt af op het apparaat dat jij kiest, zonder te verklappen welk nummer is geloot.
+      </p>
+    </section>
+
+    <section class="content">
+      <section class="card">
+        <ul class="rules">
+          <li><strong>10% kans</strong> Hoor je <em>If I Tell You</em>? Dan moet je 1 biertje adten.</li>
+          <li><strong>85% kans</strong> Hoor je <em>Solid Stigma</em>? Dan geef je de telefoon direct door.</li>
+          <li><strong>5% kans</strong> Hoor je de hardstyle remix? Dan moet je 2 biertjes adten.</li>
+        </ul>
+      </section>
+
+      <section class="card grid">
+        <h2>Spotify Koppeling</h2>
+        <p>Vul hieronder je Spotify app client ID in. Deze wordt alleen lokaal in je browser opgeslagen.</p>
+        <label>
+          Spotify Client ID
+          <input id="clientIdInput" type="text" placeholder="Bijv. 1234567890abcdef1234567890abcdef" autocomplete="off">
+        </label>
+        <label>
+          Redirect URI
+          <input id="redirectUriInput" type="text" readonly>
+        </label>
+        <div class="button-row">
+          <button class="button spotify" id="connectButton" type="button">Verbind met Spotify</button>
+          <button class="button secondary" id="disconnectButton" type="button">Verbinding wissen</button>
+          <a class="button secondary" href="https://developer.spotify.com/dashboard" target="_blank" rel="noreferrer">Spotify Dashboard</a>
+        </div>
+        <p class="small">
+          Zet in Spotify Developer Dashboard precies deze redirect URI erbij: <code id="redirectUriText"></code>
+        </p>
+      </section>
+
+      <section class="card grid">
+        <h2>Apparaat</h2>
+        <p>Kies op welk Spotify-device de muziek moet starten. Open de Spotify-app op je telefoon minstens één keer zodat hij in deze lijst verschijnt.</p>
+        <label>
+          Spotify device
+          <select id="deviceSelect">
+            <option value="">Nog geen devices geladen</option>
+          </select>
+        </label>
+        <div class="button-row">
+          <button class="button primary" id="refreshDevicesButton" type="button">Ververs devices</button>
+          <button class="button secondary" id="activateSpotifyButton" type="button">Open Spotify-app</button>
+        </div>
+      </section>
+
+      <section class="card play-area">
+        <button class="play-button" id="playButton" type="button" disabled>
+          Druk Hier
+        </button>
+
+        <div class="result pass" id="result" aria-live="polite">
+          <h2>Klaar voor de volgende ronde?</h2>
+          <p>Na het verbinden kiest de knop in stilte een nummer en start dat op je geselecteerde Spotify-device.</p>
+          <p><strong>De uitkomst blijft verborgen.</strong></p>
+        </div>
+
+        <div class="button-row">
+          <button class="button secondary" id="retryButton" type="button" disabled>Speel opnieuw af</button>
+          <button class="button secondary" id="resumeButton" type="button" disabled>Hervat huidige device</button>
+        </div>
+
+        <div class="status" id="statusBox">
+          <div><strong>Status:</strong> Nog niet verbonden met Spotify.</div>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2>Belangrijk</h2>
+        <p class="small">
+          Deze koppeling gebruikt Spotify's playback API. Daarvoor heb je een Spotify Premium-account nodig en een actief Spotify-device. Zonder actief device kan de site het nummer niet starten.
+        </p>
+      </section>
+    </section>
+  </main>
+
+  <script>
+    const CONFIG_STORAGE_KEY = "renele-bak-spotify-client-id";
+    const TOKEN_STORAGE_KEY = "renele-bak-spotify-token";
+    const REFRESH_STORAGE_KEY = "renele-bak-spotify-refresh";
+    const EXPIRY_STORAGE_KEY = "renele-bak-spotify-expiry";
+    const DEVICE_STORAGE_KEY = "renele-bak-spotify-device";
+    const VERIFIER_STORAGE_KEY = "renele-bak-pkce-verifier";
+    const STATE_STORAGE_KEY = "renele-bak-pkce-state";
+
+    const scopes = [
+      "user-modify-playback-state",
+      "user-read-playback-state"
+    ];
+
+    const tracks = [
+      {
+        id: "solid-stigma",
+        probability: 0.85,
+        actionClass: "pass",
+        uris: ["spotify:track:7s110BVIPaRVSvmUCj0JPD"]
+      },
+      {
+        id: "if-i-tell-you",
+        probability: 0.10,
+        actionClass: "drink",
+        uris: ["spotify:track:0GvXLkClNLfrr8K7lBPjK0"]
+      },
+      {
+        id: "hardstyle-remix",
+        probability: 0.05,
+        actionClass: "double",
+        contextUri: "spotify:album:7vaG0LSG8M2J5A24QgSbHW"
+      }
+    ];
+
+    const clientIdInput = document.getElementById("clientIdInput");
+    const redirectUriInput = document.getElementById("redirectUriInput");
+    const redirectUriText = document.getElementById("redirectUriText");
+    const connectButton = document.getElementById("connectButton");
+    const disconnectButton = document.getElementById("disconnectButton");
+    const deviceSelect = document.getElementById("deviceSelect");
+    const refreshDevicesButton = document.getElementById("refreshDevicesButton");
+    const activateSpotifyButton = document.getElementById("activateSpotifyButton");
+    const playButton = document.getElementById("playButton");
+    const retryButton = document.getElementById("retryButton");
+    const resumeButton = document.getElementById("resumeButton");
+    const result = document.getElementById("result");
+    const statusBox = document.getElementById("statusBox");
+
+    const redirectUri = window.location.origin + window.location.pathname;
+    let currentTrack = null;
+    let devices = [];
+
+    redirectUriInput.value = redirectUri;
+    redirectUriText.textContent = redirectUri;
+
+    function getStoredToken() {
+      const token = localStorage.getItem(TOKEN_STORAGE_KEY);
+      const expiresAt = Number(localStorage.getItem(EXPIRY_STORAGE_KEY) || "0");
+      if (!token || Date.now() >= expiresAt) {
+        return null;
+      }
+      return token;
+    }
+
+    function setStatus(lines) {
+      statusBox.innerHTML = lines.map((line) => `<div>${line}</div>`).join("");
+    }
+
+    function persistToken(data) {
+      localStorage.setItem(TOKEN_STORAGE_KEY, data.access_token);
+      localStorage.setItem(REFRESH_STORAGE_KEY, data.refresh_token || localStorage.getItem(REFRESH_STORAGE_KEY) || "");
+      localStorage.setItem(EXPIRY_STORAGE_KEY, String(Date.now() + (data.expires_in - 60) * 1000));
+    }
+
+    function clearSession() {
+      localStorage.removeItem(TOKEN_STORAGE_KEY);
+      localStorage.removeItem(REFRESH_STORAGE_KEY);
+      localStorage.removeItem(EXPIRY_STORAGE_KEY);
+      localStorage.removeItem(DEVICE_STORAGE_KEY);
+      sessionStorage.removeItem(VERIFIER_STORAGE_KEY);
+      sessionStorage.removeItem(STATE_STORAGE_KEY);
+      devices = [];
+      currentTrack = null;
+      renderDevices([]);
+      renderConnectionState();
+      setStatus(["<strong>Status:</strong> Spotify-koppeling gewist."]);
+    }
+
+    function renderConnectionState() {
+      const isConnected = Boolean(getStoredToken());
+      playButton.disabled = !isConnected || !deviceSelect.value;
+      retryButton.disabled = !isConnected || !currentTrack || !deviceSelect.value;
+      resumeButton.disabled = !isConnected || !deviceSelect.value;
+    }
+
+    function renderDevices(nextDevices) {
+      const savedDeviceId = localStorage.getItem(DEVICE_STORAGE_KEY);
+      deviceSelect.innerHTML = "";
+
+      if (!nextDevices.length) {
+        const option = document.createElement("option");
+        option.value = "";
+        option.textContent = "Geen devices gevonden";
+        deviceSelect.appendChild(option);
+        renderConnectionState();
+        return;
+      }
+
+      nextDevices.forEach((device) => {
+        const option = document.createElement("option");
+        option.value = device.id;
+        option.textContent = `${device.name} (${device.type})${device.is_active ? " - actief" : ""}`;
+        if (savedDeviceId && savedDeviceId === device.id) {
+          option.selected = true;
+        }
+        deviceSelect.appendChild(option);
+      });
+
+      if (!deviceSelect.value) {
+        const activeDevice = nextDevices.find((device) => device.is_active) || nextDevices[0];
+        if (activeDevice) {
+          deviceSelect.value = activeDevice.id;
+        }
+      }
+
+      renderConnectionState();
+    }
+
+    function pickTrack() {
+      const roll = Math.random();
+      let cumulative = 0;
+      for (const track of tracks) {
+        cumulative += track.probability;
+        if (roll < cumulative) {
+          return track;
+        }
+      }
+      return tracks[0];
+    }
+
+    function renderResult(track) {
+      result.className = `result ${track.actionClass}`;
+      result.innerHTML = [
+        "<h2>Nummer gekozen</h2>",
+        "<p>Luister goed. De site houdt geheim welk nummer is gestart.</p>",
+        "<p><strong>Geef de telefoon door zodra jullie het gehoord hebben.</strong></p>"
+      ].join("");
+    }
+
+    function randomString(length) {
+      const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+      const bytes = crypto.getRandomValues(new Uint8Array(length));
+      return Array.from(bytes, (byte) => chars[byte % chars.length]).join("");
+    }
+
+    async function sha256(text) {
+      const data = new TextEncoder().encode(text);
+      return crypto.subtle.digest("SHA-256", data);
+    }
+
+    function base64UrlEncode(buffer) {
+      return btoa(String.fromCharCode(...new Uint8Array(buffer)))
+        .replace(/\+/g, "-")
+        .replace(/\//g, "_")
+        .replace(/=+$/, "");
+    }
+
+    async function beginSpotifyLogin() {
+      const clientId = clientIdInput.value.trim();
+      if (!clientId) {
+        setStatus(["<strong>Status:</strong> Vul eerst je Spotify Client ID in."]);
+        clientIdInput.focus();
+        return;
+      }
+
+      localStorage.setItem(CONFIG_STORAGE_KEY, clientId);
+      const verifier = randomString(64);
+      const state = randomString(24);
+      const challenge = base64UrlEncode(await sha256(verifier));
+
+      sessionStorage.setItem(VERIFIER_STORAGE_KEY, verifier);
+      sessionStorage.setItem(STATE_STORAGE_KEY, state);
+
+      const params = new URLSearchParams({
+        client_id: clientId,
+        response_type: "code",
+        redirect_uri: redirectUri,
+        code_challenge_method: "S256",
+        code_challenge: challenge,
+        state,
+        scope: scopes.join(" ")
+      });
+
+      window.location.href = `https://accounts.spotify.com/authorize?${params.toString()}`;
+    }
+
+    async function exchangeCodeForToken(code) {
+      const clientId = localStorage.getItem(CONFIG_STORAGE_KEY);
+      const verifier = sessionStorage.getItem(VERIFIER_STORAGE_KEY);
+      if (!clientId || !verifier) {
+        throw new Error("Ontbrekende PKCE-gegevens. Probeer opnieuw in te loggen.");
+      }
+
+      const body = new URLSearchParams({
+        client_id: clientId,
+        grant_type: "authorization_code",
+        code,
+        redirect_uri: redirectUri,
+        code_verifier: verifier
+      });
+
+      const response = await fetch("https://accounts.spotify.com/api/token", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded"
+        },
+        body
+      });
+
+      if (!response.ok) {
+        throw new Error("Spotify login mislukt tijdens token-uitwisseling.");
+      }
+
+      const data = await response.json();
+      persistToken(data);
+      sessionStorage.removeItem(VERIFIER_STORAGE_KEY);
+      sessionStorage.removeItem(STATE_STORAGE_KEY);
+    }
+
+    async function refreshAccessToken() {
+      const refreshToken = localStorage.getItem(REFRESH_STORAGE_KEY);
+      const clientId = localStorage.getItem(CONFIG_STORAGE_KEY);
+      if (!refreshToken || !clientId) {
+        throw new Error("Geen refresh token beschikbaar. Log opnieuw in.");
+      }
+
+      const body = new URLSearchParams({
+        client_id: clientId,
+        grant_type: "refresh_token",
+        refresh_token: refreshToken
+      });
+
+      const response = await fetch("https://accounts.spotify.com/api/token", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded"
+        },
+        body
+      });
+
+      if (!response.ok) {
+        throw new Error("Spotify token verversen mislukt.");
+      }
+
+      const data = await response.json();
+      persistToken(data);
+      return data.access_token;
+    }
+
+    async function getAccessToken() {
+      const token = getStoredToken();
+      if (token) {
+        return token;
+      }
+      return refreshAccessToken();
+    }
+
+    async function spotifyFetch(url, options = {}) {
+      let token = await getAccessToken();
+      let response = await fetch(url, {
+        ...options,
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+          ...(options.headers || {})
+        }
+      });
+
+      if (response.status === 401) {
+        token = await refreshAccessToken();
+        response = await fetch(url, {
+          ...options,
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+            ...(options.headers || {})
+          }
+        });
+      }
+
+      return response;
+    }
+
+    async function loadDevices() {
+      try {
+        setStatus(["<strong>Status:</strong> Devices ophalen..."]);
+        const response = await spotifyFetch("https://api.spotify.com/v1/me/player/devices");
+
+        if (!response.ok) {
+          if (response.status === 403) {
+            throw new Error("Spotify weigert playback-control. Controleer of dit account Premium heeft.");
+          }
+          throw new Error("Kon Spotify-devices niet ophalen.");
+        }
+
+        const data = await response.json();
+        devices = data.devices.filter((device) => device.id);
+        renderDevices(devices);
+
+        const selected = devices.find((device) => device.id === deviceSelect.value);
+        const selectedLabel = selected ? `${selected.name} (${selected.type})` : "nog geen device gekozen";
+        setStatus([
+          "<strong>Status:</strong> Verbonden met Spotify.",
+          `<strong>Device:</strong> ${selectedLabel}`,
+          "<strong>Tip:</strong> Zie je je telefoon niet? Open Spotify op die telefoon en druk daarna op 'Ververs devices'."
+        ]);
+      } catch (error) {
+        renderDevices([]);
+        setStatus([`<strong>Status:</strong> ${error.message}`]);
+      }
+    }
+
+    async function transferPlayback(deviceId, shouldPlay = false) {
+      const response = await spotifyFetch("https://api.spotify.com/v1/me/player", {
+        method: "PUT",
+        body: JSON.stringify({
+          device_ids: [deviceId],
+          play: shouldPlay
+        })
+      });
+
+      if (!response.ok && response.status !== 204) {
+        if (response.status === 404) {
+          throw new Error("Spotify ziet dit device niet als actief genoeg. Open de Spotify-app op dat device en probeer opnieuw.");
+        }
+        if (response.status === 403) {
+          throw new Error("Spotify playback-control is geblokkeerd. Controleer of dit account Premium heeft.");
+        }
+        throw new Error("Kon playback niet naar dit device verplaatsen.");
+      }
+    }
+
+    async function startPlayback(track) {
+      const deviceId = deviceSelect.value;
+      if (!deviceId) {
+        throw new Error("Kies eerst een Spotify-device.");
+      }
+
+      localStorage.setItem(DEVICE_STORAGE_KEY, deviceId);
+      await transferPlayback(deviceId, false);
+
+      const payload = track.contextUri
+        ? { context_uri: track.contextUri }
+        : { uris: track.uris };
+
+      const response = await spotifyFetch(`https://api.spotify.com/v1/me/player/play?device_id=${encodeURIComponent(deviceId)}`, {
+        method: "PUT",
+        body: JSON.stringify(payload)
+      });
+
+      if (!response.ok && response.status !== 204) {
+        if (response.status === 404) {
+          throw new Error("Geen actief Spotify-device gevonden. Open Spotify op je telefoon en ververs de device-lijst.");
+        }
+        if (response.status === 403) {
+          throw new Error("Spotify start niet met afspelen. Meestal betekent dit dat Premium vereist is.");
+        }
+        throw new Error("Spotify kon het gekozen nummer niet starten.");
+      }
+    }
+
+    async function resumePlayback() {
+      const deviceId = deviceSelect.value;
+      if (!deviceId) {
+        setStatus(["<strong>Status:</strong> Kies eerst een Spotify-device."]);
+        return;
+      }
+
+      try {
+        await transferPlayback(deviceId, true);
+        setStatus([
+          "<strong>Status:</strong> Playback hervat op het gekozen device.",
+          `<strong>Device:</strong> ${deviceSelect.options[deviceSelect.selectedIndex].textContent}`
+        ]);
+      } catch (error) {
+        setStatus([`<strong>Status:</strong> ${error.message}`]);
+      }
+    }
+
+    function openSpotifyApp() {
+      const link = document.createElement("a");
+      link.href = "spotify:";
+      link.style.display = "none";
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      setStatus([
+        "<strong>Status:</strong> Spotify-app aangeroepen.",
+        "<strong>Tip:</strong> Kom daarna terug en druk op 'Ververs devices'."
+      ]);
+    }
+
+    async function handleAuthRedirect() {
+      const url = new URL(window.location.href);
+      const code = url.searchParams.get("code");
+      const state = url.searchParams.get("state");
+      const error = url.searchParams.get("error");
+
+      if (error) {
+        setStatus([`<strong>Status:</strong> Spotify login geweigerd: ${error}.`]);
+        url.search = "";
+        window.history.replaceState({}, "", url.toString());
+        return;
+      }
+
+      if (!code) {
+        return;
+      }
+
+      const expectedState = sessionStorage.getItem(STATE_STORAGE_KEY);
+      if (!expectedState || expectedState !== state) {
+        setStatus(["<strong>Status:</strong> Spotify login is ongeldig teruggekomen. Probeer opnieuw te verbinden."]);
+        return;
+      }
+
+      try {
+        setStatus(["<strong>Status:</strong> Spotify-token ophalen..."]);
+        await exchangeCodeForToken(code);
+        url.search = "";
+        window.history.replaceState({}, "", url.toString());
+        setStatus(["<strong>Status:</strong> Spotify verbonden. Devices worden geladen..."]);
+      } catch (errorMessage) {
+        setStatus([`<strong>Status:</strong> ${errorMessage.message}`]);
+      }
+    }
+
+    async function bootstrap() {
+      clientIdInput.value = localStorage.getItem(CONFIG_STORAGE_KEY) || "";
+      await handleAuthRedirect();
+
+      const hasToken = Boolean(getStoredToken() || localStorage.getItem(REFRESH_STORAGE_KEY));
+      renderConnectionState();
+
+      if (hasToken) {
+        try {
+          await loadDevices();
+        } catch (error) {
+          setStatus([`<strong>Status:</strong> ${error.message}`]);
+        }
+      }
+
+      if (!hasToken) {
+        setStatus([
+          "<strong>Status:</strong> Nog niet verbonden met Spotify.",
+          "<strong>Stap 1:</strong> Maak of open een app in Spotify Developer Dashboard.",
+          `<strong>Stap 2:</strong> Voeg deze redirect URI toe: <code>${redirectUri}</code>.`,
+          "<strong>Stap 3:</strong> Vul je client ID in en druk op 'Verbind met Spotify'."
+        ]);
+      }
+    }
+
+    connectButton.addEventListener("click", beginSpotifyLogin);
+    disconnectButton.addEventListener("click", clearSession);
+    refreshDevicesButton.addEventListener("click", loadDevices);
+    activateSpotifyButton.addEventListener("click", openSpotifyApp);
+
+    deviceSelect.addEventListener("change", () => {
+      localStorage.setItem(DEVICE_STORAGE_KEY, deviceSelect.value);
+      renderConnectionState();
+    });
+
+    playButton.addEventListener("click", async () => {
+      try {
+        currentTrack = pickTrack();
+        renderResult(currentTrack);
+        setStatus(["<strong>Status:</strong> Nummer gekozen. Spotify start nu afspelen op het gekozen device..."]);
+        await startPlayback(currentTrack);
+        renderConnectionState();
+        setStatus([
+          "<strong>Status:</strong> Nummer gestart op Spotify.",
+          `<strong>Device:</strong> ${deviceSelect.options[deviceSelect.selectedIndex].textContent}`,
+          "<strong>Spanning:</strong> De site houdt geheim welk nummer is gekozen."
+        ]);
+      } catch (error) {
+        setStatus([`<strong>Status:</strong> ${error.message}`]);
+      }
+    });
+
+    retryButton.addEventListener("click", async () => {
+      if (!currentTrack) {
+        setStatus(["<strong>Status:</strong> Er is nog geen nummer gekozen."]);
+        return;
+      }
+
+      try {
+        setStatus(["<strong>Status:</strong> Huidige geheime track wordt opnieuw gestart..."]);
+        await startPlayback(currentTrack);
+        setStatus([
+          "<strong>Status:</strong> Het huidige geheime nummer is opnieuw gestart.",
+          `<strong>Device:</strong> ${deviceSelect.options[deviceSelect.selectedIndex].textContent}`
+        ]);
+      } catch (error) {
+        setStatus([`<strong>Status:</strong> ${error.message}`]);
+      }
+    });
+
+    resumeButton.addEventListener("click", resumePlayback);
+
+    bootstrap();
+  </script>
+</body>
+</html>
